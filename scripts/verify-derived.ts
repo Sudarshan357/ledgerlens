@@ -1,0 +1,28 @@
+import { getIncidentSummary } from "../lib/data/incident";
+import { getEvidence } from "../lib/data/evidence";
+import { getBlastRadius } from "../lib/data/blastRadius";
+import { getTimeline } from "../lib/data/timeline";
+import { getComparison } from "../lib/data/compare";
+import { getAuditTrail } from "../lib/data/audit";
+import { getRecoveryPlan } from "../lib/data/recovery";
+import { getMoneyFlowGraph } from "../lib/data/graph";
+
+console.log("=== incident ===");
+console.log(getIncidentSummary());
+console.log("=== evidence ===", getEvidence().length);
+console.log("=== blastRadius ===");
+const br = getBlastRadius();
+console.log("topMerchants", br.topMerchants);
+console.log("topBatches", br.topBatches);
+console.log("largest[0]", br.largestTransactions[0]);
+console.log("sum topMerchants amount", br.topMerchants.reduce((a, m) => a + m.amount, 0));
+console.log("sum topBatches amount", br.topBatches.reduce((a, b) => a + b.amount, 0));
+console.log("=== timeline ===", getTimeline().length);
+console.log("=== compare ===", getComparison());
+console.log("=== audit ===", getAuditTrail().length);
+console.log("=== recovery ===", getRecoveryPlan());
+console.log("=== graph ===");
+const g = getMoneyFlowGraph();
+console.log("nodes", g.nodes.length, "edges", g.edges.length);
+console.log("node ids unique:", new Set(g.nodes.map((n) => n.id)).size === g.nodes.length);
+console.log("edge source/target valid:", g.edges.every((e) => g.nodes.some((n) => n.id === e.source) && g.nodes.some((n) => n.id === e.target)));

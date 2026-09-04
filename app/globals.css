@@ -1,0 +1,149 @@
+@import "tailwindcss";
+
+:root {
+  /* LedgerLens is a permanently dark operations console — no light-mode
+     variant. Layer scale: canvas (page) < surface (panel) < surface-raised
+     (hover/active panel). */
+  --canvas: #0a0a0d;
+  --surface: #131318;
+  --surface-raised: #1a1a21;
+  --border-subtle: #202027;
+  --border-default: #2b2b34;
+
+  --ink-900: #edeef1;
+  --ink-700: #c3c3cc;
+  --ink-500: #8b8b96;
+  --ink-400: #6c6c77;
+  --ink-300: #48484f;
+
+  --brand-red: #f0475c;
+  --brand-red-600: #ff6478;
+  --brand-red-50: #1f1216;
+  --brand-red-100: #2c171c;
+  --brand-red-200: #47232b;
+
+  --accent-green: #34c98d;
+  --accent-green-50: #0f1f19;
+  --accent-amber: #e2a53f;
+  --accent-amber-50: #221a0e;
+  --accent-blue: #5b93f5;
+  --accent-blue-50: #131c2c;
+
+  /* Settlement-batch accent for the Blast Radius explorer: a warm,
+     restrained "anomaly-adjacent" tone distinct from both the pure incident
+     red and the fees/tax amber. */
+  --blast-settlement: #d9775c;
+  --blast-settlement-50: #1f1310;
+
+  --shadow-card: 0 1px 2px rgba(0, 0, 0, 0.45), 0 1px 1px rgba(0, 0, 0, 0.3);
+  --shadow-raised: 0 16px 40px rgba(0, 0, 0, 0.55), 0 2px 8px rgba(0, 0, 0, 0.35);
+}
+
+@theme inline {
+  --color-canvas: var(--canvas);
+  --color-surface: var(--surface);
+  --color-surface-raised: var(--surface-raised);
+  --color-border-subtle: var(--border-subtle);
+  --color-border-default: var(--border-default);
+  --color-ink-900: var(--ink-900);
+  --color-ink-700: var(--ink-700);
+  --color-ink-500: var(--ink-500);
+  --color-ink-400: var(--ink-400);
+  --color-ink-300: var(--ink-300);
+  --color-brand-red: var(--brand-red);
+  --color-brand-red-600: var(--brand-red-600);
+  --color-brand-red-50: var(--brand-red-50);
+  --color-brand-red-100: var(--brand-red-100);
+  --color-brand-red-200: var(--brand-red-200);
+  --color-accent-green: var(--accent-green);
+  --color-accent-green-50: var(--accent-green-50);
+  --color-accent-amber: var(--accent-amber);
+  --color-accent-amber-50: var(--accent-amber-50);
+  --color-accent-blue: var(--accent-blue);
+  --color-accent-blue-50: var(--accent-blue-50);
+  --color-blast-settlement: var(--blast-settlement);
+  --color-blast-settlement-50: var(--blast-settlement-50);
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+}
+
+* {
+  border-color: var(--border-subtle);
+}
+
+html {
+  background: var(--canvas);
+  color-scheme: dark;
+}
+
+body {
+  background: var(--canvas);
+  color: var(--ink-900);
+}
+
+::selection {
+  background: var(--brand-red-200);
+  color: var(--ink-900);
+}
+
+.tabular {
+  font-variant-numeric: tabular-nums;
+}
+
+.mono {
+  font-family: var(--font-mono);
+}
+
+/* Section-label convention used throughout the console: "01 DETECT",
+   "MONEY FLOW", "FINANCIAL BLAST RADIUS" — small, spaced, monospace. */
+.label-mono {
+  font-family: var(--font-mono);
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+}
+
+@keyframes ll-pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.35; }
+}
+.ll-pulse {
+  animation: ll-pulse 1.8s ease-in-out infinite;
+}
+
+/* A single, non-repeating pulse for nodes/rows that just became affected —
+   communicates a state change without looping forever. */
+@keyframes ll-pulse-once {
+  0% { box-shadow: 0 0 0 0 rgba(240, 71, 92, 0.45); }
+  70% { box-shadow: 0 0 0 10px rgba(240, 71, 92, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(240, 71, 92, 0); }
+}
+.ll-pulse-once {
+  animation: ll-pulse-once 0.9s ease-out 1;
+}
+
+@keyframes ll-flow-dash {
+  to { stroke-dashoffset: -24; }
+}
+.ll-flow-edge {
+  stroke-dasharray: 4 4;
+  animation: ll-flow-dash 0.7s linear infinite;
+}
+
+@keyframes ll-shimmer {
+  0% { background-position: -400px 0; }
+  100% { background-position: 400px 0; }
+}
+.ll-skeleton {
+  background: linear-gradient(90deg, #17171d 0%, #1e1e25 50%, #17171d 100%);
+  background-size: 800px 100%;
+  animation: ll-shimmer 1.4s linear infinite;
+}
+
+.scrollbar-thin::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+.scrollbar-thin::-webkit-scrollbar-thumb {
+  background: var(--border-default);
+  border-radius: 999px;
+}
