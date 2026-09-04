@@ -2,6 +2,8 @@
 
 **AI Financial Incident Investigator** — built for the Razorpay AI Buildathon.
 
+**Live demo:** [ledgerlens-gules.vercel.app](https://ledgerlens-gules.vercel.app/)
+
 > When money doesn't add up, find out why.
 
 LedgerLens is not a reconciliation dashboard or a fraud detector. It's a financial
